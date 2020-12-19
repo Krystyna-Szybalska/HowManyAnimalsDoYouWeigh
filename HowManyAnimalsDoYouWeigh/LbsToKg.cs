@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HowManyAnimalsDoYouWeigh
 {
-    class Lbs_to_kg_converter
+    class LbsToKg
     {
         public static double ConvertToKg(double weightInLbs)
         {

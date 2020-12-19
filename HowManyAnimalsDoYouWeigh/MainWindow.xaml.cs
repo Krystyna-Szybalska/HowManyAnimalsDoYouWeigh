@@ -33,21 +33,21 @@ namespace HowManyAnimalsDoYouWeigh
                 ErrorMessage.Visibility = Visibility.Visible;
                 ErrorMessage.Text = "Type in number";
                 input.Text = null;
-                ///niech to jakoś przerwie
             }
+
             else
             {
                 // jeśli podane jest w lbs - ma przeliczyć na kg
                 if (combobox.SelectedIndex == 1)
                 {
-                    weight = Lbs_to_kg_converter.ConvertToKg(weight);
+                    weight = LbsToKg.ConvertToKg(weight);
                 }
 
                 // ma przeliczyć kg na zwierzęta
 
-                double ants = Animals.Ants(weight);
-                double chihuahuas = Animals.Chihuahuas(weight);
-                double elephants = Animals.Elephants(weight);
+                double ants = Animals.ToAnts(weight);
+                double chihuahuas = Animals.ToChihuahuas(weight);
+                double elephants = Animals.ToElephants(weight);
                 ErrorMessage.Visibility = Visibility.Visible;
                 ErrorMessage.Text = $"You weigh approximately:\n {ants} ants\n {chihuahuas} chihuahuas\n {elephants} elephants";
             }
