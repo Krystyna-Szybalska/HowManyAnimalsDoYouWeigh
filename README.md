@@ -1,3 +1,3 @@
 # HowManyAnimalsDoYouWeigh
-Converts your wegih into number of animals
+Converts your weight into number of animals
 ![](https://https://github.com/Krystyna-Szybalska/HowManyAnimalsDoYouWeigh/blob/main/HowManyAnimalsDoYouWeigh/image.jpg)
