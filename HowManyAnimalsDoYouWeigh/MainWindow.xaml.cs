@@ -49,7 +49,7 @@ namespace HowManyAnimalsDoYouWeigh
                 double chihuahuas = Animals.Chihuahuas(weight);
                 double elephants = Animals.Elephants(weight);
                 ErrorMessage.Visibility = Visibility.Visible;
-                ErrorMessage.Text = $"{ants} ants\n {chihuahuas} chihuahuas\n {elephants} elephants";
+                ErrorMessage.Text = $"You weigh approximately:\n {ants} ants\n {chihuahuas} chihuahuas\n {elephants} elephants";
             }
 
 
