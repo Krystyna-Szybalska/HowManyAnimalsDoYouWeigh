@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
+    <TargetFrameworks>net5.0-windows;netcoreapp3.1</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
