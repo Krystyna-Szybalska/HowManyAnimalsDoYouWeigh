@@ -1,15 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using HowManyAnimalsDoYouWeighAPI.FunFacts;
+using HowManyAnimalsDoYouWeighAPI.ItemFunFacts;
 
-namespace HowManyAnimalsDoYouWeighAPI
+namespace HowManyAnimalsDoYouWeighAPI.Items
 {
-    public class Animal
+    public class Item
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
         public decimal Weight { get; set; }
-        public ICollection<AnimalFunFact> FunFacts { get; set; }
+        public ICollection<ItemFunFact> RandomFacts { get; set; }
     }
 }
