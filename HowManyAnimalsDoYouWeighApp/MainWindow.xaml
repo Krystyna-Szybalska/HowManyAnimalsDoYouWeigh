@@ -1,33 +1,122 @@
-﻿<Window x:Class="HowManyAnimalsDoYouWeighApp.MainWindow"
+﻿<controls:AdonisWindow x:Class="HowManyAnimalsDoYouWeighApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
+        xmlns:adonisExtensions="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
         xmlns:local="clr-namespace:HowManyAnimalsDoYouWeigh"
         mc:Ignorable="d"
         Title="How Many Animals Do You Weigh" Height="200" Width="800" SizeToContent="Height"  >
 
-    <Window.Style>
-        <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}" />
-    </Window.Style>
+   <Grid>
+        <!-- combobox and search -->
+       <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ComboBox SelectedValuePath="Content" SelectedValue="{Binding CurrentSection}"
+                      SelectionChanged="CurrentSection_OnSelectionChanged" Margin=" 15 10" Grid.Row="0">
+                <ComboBoxItem IsSelected="True">Animals</ComboBoxItem>
+                <ComboBoxItem>Items</ComboBoxItem>
+                <ComboBoxItem>Substances</ComboBoxItem>
+            </ComboBox>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="16*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBox adonisExtensions:WatermarkExtension.Watermark="Search ..." Name="SearchTextBox"
+                     TextChanged="SearchTextBox_OnTextChanged" Margin=" 15 5 0 10" Grid.Column="0" />
+        </Grid>
+       
+        <Grid Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            
+            <!-- Animals -->
+            <ListView ItemsSource="{Binding }" MaxHeight="600" Margin="10" Name="AnimalsListView"
+                      Grid.Column="0" Grid.Row="0">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Animal" Width="150">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding }" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Select" Width="150">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox/>                                
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            
+            <!-- Items -->
+            <ListView ItemsSource="{Binding }" MaxHeight="600" Margin="10" Name="ItemsListView"
+                      Grid.Column="0" Grid.Row="0">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Item" Width="150">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Effect}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Select" Width="150">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox/>                                
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            
+            <!-- Substances -->
+            <ListView ItemsSource="{Binding }" MaxHeight="600" Margin="10" Name="SubstancesListView"
+                      Grid.Column="0" Grid.Row="0">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Substance" Width="150">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Effect}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Select" Width="150">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox/>                                
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
 
-    <Border Padding="20">
-        <StackPanel VerticalAlignment="Center">
-
-            <TextBlock Text ="Enter your weight:" Margin="0 10 0 10" HorizontalAlignment="Center"/>
-
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBox x:Name="input" MinWidth="200" HorizontalAlignment="Center" Margin="0 0 0 0" VerticalAlignment="Center"/>
-                <ComboBox x:Name="combobox" SelectedIndex="0" Margin="10 0 0 0">
-                    <ComboBoxItem>kg</ComboBoxItem>
-                    <ComboBoxItem>lbs</ComboBoxItem>
-                </ComboBox>
-            </StackPanel>
-            <TextBlock x:Name="ErrorMessage" Margin ="0 10 0 0 " Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Button x:Name ="OKButton" Click="OKButton_Click"  Content="OK" Width="200" Margin="0 10 0 10"/>
-
-        </StackPanel>
-    </Border>
-
-
-</Window>
+        </Grid>
+   </Grid>
+</controls:AdonisWindow>

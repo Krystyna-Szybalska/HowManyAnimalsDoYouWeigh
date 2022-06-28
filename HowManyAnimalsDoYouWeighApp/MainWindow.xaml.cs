@@ -19,42 +19,36 @@ namespace HowManyAnimalsDoYouWeighApp
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void OKButton_Click(object sender, RoutedEventArgs e)
+        private void SearchButton_OnClick(object sender, RoutedEventArgs e)
         {
-            // jeśli wpisana wartość jest niepoprawna - ma wyświetlić komunikat o błędzie
-            if (!double.TryParse(input.Text, out double weight))
-            {
-                ErrorMessage.Visibility = Visibility.Visible;
-                ErrorMessage.Text = "Type in number";
-                input.Text = null;
-            }
+            throw new NotImplementedException();
+        }
 
-            else
-            {
-                // jeśli podane jest w lbs - ma przeliczyć na kg
-                if (combobox.SelectedIndex == 1)
-                {
-                    weight = LbsToKg.ConvertToKg(weight);
-                }
+        private void ClearButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 
-                // ma przeliczyć kg na zwierzęta
+        private void CurrentSection_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 
-                double ants = Animals.ToAnts(weight);
-                double chihuahuas = Animals.ToChihuahuas(weight);
-                double elephants = Animals.ToElephants(weight);
-                ErrorMessage.Visibility = Visibility.Visible;
-                ErrorMessage.Text = $"You weigh approximately:\n {ants} ants\n {chihuahuas} chihuahuas\n {elephants} elephants";
-            }
+        private void SearchTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 
-
-            // ma otworzyć ResultWindow i wypisać w nim wyniki (jeśli da się zrobić coś takiego)
+        private void FiltersCheckbox_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
