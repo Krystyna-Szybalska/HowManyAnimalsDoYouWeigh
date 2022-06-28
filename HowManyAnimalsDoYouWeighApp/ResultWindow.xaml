@@ -14,21 +14,80 @@
     </Window.Style>
 
     <Border Padding="20">
-        <StackPanel VerticalAlignment="Center">
+        <Grid VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <ListView MaxHeight="600" Margin="10" Name="AnimalsResultsListView"
+                      Grid.Column="0" Grid.Row="0"> <!--ItemsSource="{Binding }"-->
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="You weigh approximately... " Width="250">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock TextWrapping="Wrap"  /><!--Text="{Binding}"-->
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Did you know that?" Width="500">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock x:Name="AnimalFunFact"/>                                
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
 
-            <TextBlock Text ="Enter your weight:" Margin="0 10 0 10" HorizontalAlignment="Center"/>
+            <ListView MaxHeight="600" Margin="10" Name="ItemsResultsListView"
+                      Grid.Column="0" Grid.Row="0"> <!--ItemsSource="{Binding }"-->
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="You weigh approximately... " Width="250">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock TextWrapping="Wrap"  /><!--Text="{Binding}"-->
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Did you know that?" Width="500">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock x:Name="ItemFunFact"/>                                
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBox x:Name="input" MinWidth="200" HorizontalAlignment="Center" Margin="0 0 0 0" VerticalAlignment="Center"/>
-                <ComboBox x:Name="combobox" SelectedIndex="0" Margin="10 0 0 0">
-                    <ComboBoxItem>kg</ComboBoxItem>
-                    <ComboBoxItem>lbs</ComboBoxItem>
-                </ComboBox>
-            </StackPanel>
-            <TextBlock x:Name="ErrorMessage" Margin ="0 10 0 0 " Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Button x:Name ="OKButton" Click="OKButton_Click"  Content="OK" Width="200" Margin="0 10 0 10"/>
-
-        </StackPanel>
+            <ListView MaxHeight="600" Margin="10" Name="SubstancesResultsListView"
+                      Grid.Column="0" Grid.Row="0"> <!--ItemsSource="{Binding }"-->
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="You weigh approximately... " Width="250">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock TextWrapping="Wrap"  /><!--Text="{Binding}"-->
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Did you know that?" Width="500">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock x:Name="Visualization"/>                                
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            
+            <Button Grid.Row="1" x:Name ="OkButton" Click="OkButton_Click" Content="Ok" Width="100" Margin="0 10 0 10"/> 
+            
+        </Grid>
     </Border>
 
 </controls:AdonisWindow>

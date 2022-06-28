@@ -103,9 +103,6 @@ namespace HowManyAnimalsDoYouWeighAPI.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<string>("RandomFact")
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
 
                     b.ToTable("Substances");

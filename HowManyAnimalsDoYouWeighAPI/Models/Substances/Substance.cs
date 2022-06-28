@@ -7,6 +7,5 @@ namespace HowManyAnimalsDoYouWeighAPI.Items
         public Guid Id { get; set; }
         public string Name { get; set; }
         public decimal Density { get; set; }
-        public string RandomFact { get; set; }
     }
 }

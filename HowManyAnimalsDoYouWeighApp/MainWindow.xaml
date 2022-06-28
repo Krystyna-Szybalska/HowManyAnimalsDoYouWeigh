@@ -8,115 +8,163 @@
         xmlns:local="clr-namespace:HowManyAnimalsDoYouWeigh"
         mc:Ignorable="d"
         Title="How Many Animals Do You Weigh" Height="200" Width="800" SizeToContent="Height"  >
-
+   
+    <Window.Style>
+        <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}" />
+    </Window.Style>
+    
    <Grid>
         <!-- combobox and search -->
        <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" x:Name="ChooseComparisonTypeGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <ComboBox SelectedValuePath="Content" SelectedValue="{Binding CurrentSection}"
-                      SelectionChanged="CurrentSection_OnSelectionChanged" Margin=" 15 10" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.ColumnSpan="3" TextWrapping="Wrap" Margin=" 65 10"
+                       Text="This is a simple converter-like app, that allows you to check how many particular animals or items would equal your weight or how much space would you take up if you consisted solely out of a given substance. Have fun! :)" />
+            
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="Choose the kind of object you want to compare your weight to: " Margin="25 0 0 0 " VerticalAlignment="Center"/>
+
+            <ComboBox SelectedValuePath="Content" SelectionChanged="CurrentSection_OnSelectionChanged" 
+                      Margin=" 5 10" Grid.Row="1" Grid.Column="1"> <!--SelectedValue="{Binding CurrentSection}"-->
                 <ComboBoxItem IsSelected="True">Animals</ComboBoxItem>
                 <ComboBoxItem>Items</ComboBoxItem>
                 <ComboBoxItem>Substances</ComboBoxItem>
             </ComboBox>
-        </Grid>
-        <Grid Grid.Row="1">
+        </Grid> <!-- dopisz wybierz zwierzaka-->
+        <Grid Grid.Row="1" x:Name="SearchGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="16*" />
                 <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="16*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Search: " Margin="25 5 0 10" VerticalAlignment="Center" />
             <TextBox adonisExtensions:WatermarkExtension.Watermark="Search ..." Name="SearchTextBox"
-                     TextChanged="SearchTextBox_OnTextChanged" Margin=" 15 5 0 10" Grid.Column="0" />
-        </Grid>
-       
-        <Grid Row="3">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+                     TextChanged="SearchTextBox_OnTextChanged" Margin=" 5 10" Grid.Column="1" />
+        </Grid> <!-- to jest ok-->
+        
+        <Grid Grid.Row="3" x:Name="ListViewAndInputGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width = "3*"/>
+                <ColumnDefinition Width = "2*"/>
+            </Grid.ColumnDefinitions>
             
             <!-- Animals -->
-            <ListView ItemsSource="{Binding }" MaxHeight="600" Margin="10" Name="AnimalsListView"
-                      Grid.Column="0" Grid.Row="0">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Animal" Width="150">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock TextWrapping="Wrap" Text="{Binding }" />
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="Select" Width="150">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <CheckBox/>                                
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                <ListView ItemsSource="{Binding }" MaxHeight="600" Margin="10" Width="450" Name="AnimalsListView"
+                          Grid.Column="0" Grid.Row="0">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Animal" Width="200">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock TextWrapping="Wrap"  /> <!--Text="{Binding }"-->
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Select" Width="50">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox/>                                
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Selected animals" Width="200">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock/>                                
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                
+                <!-- Items -->
+                <ListView ItemsSource="{Binding }" MaxHeight="600" Margin="10" Name="ItemsListView"
+                          Grid.Column="0" Grid.Row="0">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Item" Width="200">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock TextWrapping="Wrap"  /> <!--Text="{Binding }"-->
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Select" Width="50">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox/>                                
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Selected items" Width="150">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock/>                                
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                
+                <!-- Substances -->
+                <ListView MaxHeight="600" Margin="10" Name="SubstancesListView"
+                          Grid.Column="0" Grid.Row="0"> <!--ItemsSource="{Binding }"-->
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Substance" Width="200">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock TextWrapping="Wrap"  /><!--Text="{Binding}"-->
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Select" Width="50">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox/>                                
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Selected substances" Width="200">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock/>                                
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             
-            <!-- Items -->
-            <ListView ItemsSource="{Binding }" MaxHeight="600" Margin="10" Name="ItemsListView"
-                      Grid.Column="0" Grid.Row="0">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Item" Width="150">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock TextWrapping="Wrap" Text="{Binding Effect}" />
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="Select" Width="150">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <CheckBox/>                                
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            
-            <!-- Substances -->
-            <ListView ItemsSource="{Binding }" MaxHeight="600" Margin="10" Name="SubstancesListView"
-                      Grid.Column="0" Grid.Row="0">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Substance" Width="150">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock TextWrapping="Wrap" Text="{Binding Effect}" />
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="Select" Width="150">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <CheckBox/>                                
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-
+            <StackPanel Grid.Column = "1" x:Name="InputGrid">
+                <TextBlock Text ="Enter your weight:" Margin="0 10 0 10" HorizontalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBox x:Name="input" MinWidth="100" HorizontalAlignment="Center" Margin="0 0 0 0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="combobox" SelectedIndex="0" Margin="10 0 0 0">
+                        <ComboBoxItem>kg</ComboBoxItem>
+                        <ComboBoxItem>lbs</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+                <TextBlock x:Name="ErrorMessage" Margin ="0 10 0 0 " Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button x:Name ="CalculateButton" Click="CalculateButton_Click" Content="Calculate" Width="100" Margin="0 10 0 10"/>
+            </StackPanel>
         </Grid>
    </Grid>
 </controls:AdonisWindow>
