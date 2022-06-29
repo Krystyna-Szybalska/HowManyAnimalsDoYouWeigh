@@ -9,6 +9,9 @@
     <ItemGroup>
       <PackageReference Include="AdonisUI" Version="1.17.1" />
       <PackageReference Include="AdonisUI.ClassicTheme" Version="1.17.1" />
+      <PackageReference Include="RestSharp" Version="108.0.1" />
+      <PackageReference Include="RestSharp.Newtonsoft.Json" Version="1.5.1" />
+      <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="108.0.1" />
     </ItemGroup>
 
     <ItemGroup>

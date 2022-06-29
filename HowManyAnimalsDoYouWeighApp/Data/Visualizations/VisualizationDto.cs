@@ -1,6 +1,4 @@
-using System;
-
-namespace HowManyAnimalsDoYouWeighAPI.Visualizations
+namespace HowManyAnimalsDoYouWeighApp.Data.Visualizations
 {
     public class VisualizationDto
     {

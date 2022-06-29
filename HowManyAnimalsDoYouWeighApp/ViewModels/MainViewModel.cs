@@ -1,4 +1,4 @@
-namespace HowManyAnimalsDoYouWeigh.ViewModels
+namespace HowManyAnimalsDoYouWeighApp.ViewModels
 {
     public class MainViewModel
     {

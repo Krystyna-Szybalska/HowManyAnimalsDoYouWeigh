@@ -4,8 +4,6 @@
                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                        xmlns:controls="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
-                       xmlns:adonisExtensions="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
-                       xmlns:local="clr-namespace:HowManyAnimalsDoYouWeigh"
                        mc:Ignorable="d"
                        Title="How Many Animals Do You Weigh" Height="200" Width="800" SizeToContent="Height"  >
 
