@@ -18,7 +18,7 @@ namespace HowManyAnimalsDoYouWeighApp
             InitializeComponent();
             this.DataContext = MainViewModel;
         }
-        private void CurrentSection_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ActiveListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (AnimalsListView is not null) {
                 AnimalsListView.Visibility = MainViewModel.ActiveListView == ListViewName.Animals
@@ -94,11 +94,12 @@ namespace HowManyAnimalsDoYouWeighApp
         private void CalculateButton_Click(object sender, RoutedEventArgs e)
         {
             // jeśli wpisana wartość jest niepoprawna - ma wyświetlić komunikat o błędzie
-            if (!double.TryParse(inputWeight.Text, out double weight))
+            if (!decimal.TryParse(inputWeight.Text, out var weight))
             {
                 ErrorMessage.Visibility = Visibility.Visible;
-                ErrorMessage.Text = "Type in number";
+                ErrorMessage.Text = "Type in a valid number";
                 inputWeight.Text = null;
+                ErrorMessage.FontStyle = FontStyles.Italic;
             }
 
             else
@@ -106,11 +107,11 @@ namespace HowManyAnimalsDoYouWeighApp
                 // jeśli podane jest w lbs - ma przeliczyć na kg
                 if (combobox.SelectedIndex == 1)
                 {
-                    weight = LbsToKg.ConvertToKg(weight);
+                    weight = UnitConverter.ConvertLbsToKg(weight);
                 }
 
                 // ma przeliczyć kg na zwierzęta i przekazac do nowego okna te listę
-
+                //zrobić funkcję która aktywuje dobre rzeczy w result window na podstawie rzeczy aktywnych tutaj
                 ResultWindow resultWindow = new ResultWindow();
                 resultWindow.Show();
             }

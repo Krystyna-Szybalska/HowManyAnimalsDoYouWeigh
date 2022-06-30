@@ -4,11 +4,11 @@ using System.Text;
 
 namespace HowManyAnimalsDoYouWeighDomain
 {
-    public class LbsToKg
+    public class UnitConverter
     {
-        public static double ConvertToKg(double weightInLbs)
+        public static decimal ConvertLbsToKg(decimal weightInLbs)
         {
-            double weightInKg = weightInLbs * 0.45359237;
+            decimal weightInKg = weightInLbs * 0.45359237m;
 
             return weightInKg;
         }

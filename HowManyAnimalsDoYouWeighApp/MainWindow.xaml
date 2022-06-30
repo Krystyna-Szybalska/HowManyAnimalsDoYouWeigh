@@ -35,7 +35,7 @@
             
             <TextBlock Grid.Column="0" Grid.Row="1" Text="Choose the kind of object you want to compare your weight to: " Margin="25 0 0 0 " VerticalAlignment="Center"/>
 
-            <ComboBox SelectedValuePath="Content" SelectionChanged="CurrentSection_OnSelectionChanged" 
+            <ComboBox SelectedValuePath="Content" SelectionChanged="ActiveListView_OnSelectionChanged" 
                       Margin=" 5 10" Grid.Row="1" Grid.Column="1" SelectedValue="{Binding ActiveListView}">
                 <ComboBoxItem>Animals</ComboBoxItem>
                 <ComboBoxItem>Items</ComboBoxItem>
