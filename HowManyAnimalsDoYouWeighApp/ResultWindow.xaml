@@ -17,14 +17,14 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <ListView MaxHeight="600" Margin="10" Name="AnimalsResultsListView"
-                      Grid.Column="0" Grid.Row="0"> <!--ItemsSource="{Binding }"-->
+            <ListView ItemsSource="{Binding AnimalsResult.Data }" MaxHeight="600" Margin="10" Name="AnimalsResultsListView"
+                      Grid.Column="0" Grid.Row="0"> 
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="You weigh approximately... " Width="250">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock TextWrapping="Wrap"  /><!--Text="{Binding}"-->
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Name}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -39,21 +39,21 @@
                 </ListView.View>
             </ListView>
 
-            <ListView MaxHeight="600" Margin="10" Name="ItemsResultsListView"
-                      Grid.Column="0" Grid.Row="0"> <!--ItemsSource="{Binding }"-->
+            <ListView ItemsSource="{Binding ItemsResult.Data }" MaxHeight="600" Margin="10" Name="ItemsResultsListView"
+                      Grid.Column="0" Grid.Row="0"> 
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="You weigh approximately... " Width="250">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock TextWrapping="Wrap"  /><!--Text="{Binding}"-->
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Name}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Did you know that?" Width="500">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock x:Name="ItemFunFact"/>                                
+                                    <TextBlock x:Name="ItemFunFact"/>                              
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -61,18 +61,25 @@
                 </ListView.View>
             </ListView>
 
-            <ListView MaxHeight="600" Margin="10" Name="SubstancesResultsListView"
-                      Grid.Column="0" Grid.Row="0"> <!--ItemsSource="{Binding }"-->
+            <ListView ItemsSource="{Binding SubstancesResult.Data }" MaxHeight="600" Margin="10" Name="SubstancesResultsListView"
+                      Grid.Column="0" Grid.Row="0">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="You weigh approximately... " Width="250">
+                        <GridViewColumn Header="If you where made of..." Width="250">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock TextWrapping="Wrap"  /><!--Text="{Binding}"-->
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Name}" /> <!--binding visualization that is closest to the volume-->  
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Did you know that?" Width="500">
+                        <GridViewColumn Header="You would take up approximately" Width="250">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock x:Name="Visualization"/>                                
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Which is about the same as" Width="250">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock x:Name="Visualization"/>                                

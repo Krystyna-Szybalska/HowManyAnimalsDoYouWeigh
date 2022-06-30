@@ -6,13 +6,13 @@
         xmlns:controls="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
         xmlns:adonisExtensions="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
         mc:Ignorable="d"
-        Title="How Many Animals Do You Weigh" Height="200" Width="800" SizeToContent="Height"  >
+        Title="How Many Animals Do You Weigh" Height="200" Width="800" SizeToContent="Height">
    
     <Window.Style>
         <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}" />
     </Window.Style>
     
-   <Grid>
+    <Grid>
         <!-- combobox and search -->
        <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -36,8 +36,8 @@
             <TextBlock Grid.Column="0" Grid.Row="1" Text="Choose the kind of object you want to compare your weight to: " Margin="25 0 0 0 " VerticalAlignment="Center"/>
 
             <ComboBox SelectedValuePath="Content" SelectionChanged="CurrentSection_OnSelectionChanged" 
-                      Margin=" 5 10" Grid.Row="1" Grid.Column="1"> <!--SelectedValue="{Binding CurrentSection}"-->
-                <ComboBoxItem IsSelected="True">Animals</ComboBoxItem>
+                      Margin=" 5 10" Grid.Row="1" Grid.Column="1" SelectedValue="{Binding ActiveListView}">
+                <ComboBoxItem>Animals</ComboBoxItem>
                 <ComboBoxItem>Items</ComboBoxItem>
                 <ComboBoxItem>Substances</ComboBoxItem>
             </ComboBox>
@@ -54,7 +54,7 @@
             <TextBlock Grid.Column="0" Text="Search: " Margin="25 5 0 10" VerticalAlignment="Center" />
             <TextBox adonisExtensions:WatermarkExtension.Watermark="Search ..." Name="SearchTextBox"
                      TextChanged="SearchTextBox_OnTextChanged" Margin=" 5 10" Grid.Column="1" />
-        </Grid> <!-- to jest ok-->
+        </Grid> 
         
         <Grid Grid.Row="3" x:Name="ListViewAndInputGrid">
             <Grid.ColumnDefinitions>
@@ -63,14 +63,14 @@
             </Grid.ColumnDefinitions>
             
             <!-- Animals -->
-                <ListView ItemsSource="{Binding }" MaxHeight="600" Margin="10" Width="450" Name="AnimalsListView"
+                <ListView ItemsSource="{Binding Animals.Data }" MaxHeight="600" Margin="10" Width="450" Name="AnimalsListView"
                           Grid.Column="0" Grid.Row="0">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Animal" Width="200">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock TextWrapping="Wrap"  /> <!--Text="{Binding }"-->
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding Name }" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -84,7 +84,7 @@
                             <GridViewColumn Header="Selected animals" Width="200">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock/>                                
+                                        <TextBlock/> <!-- it should show list of selected animals-->                               
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -93,14 +93,14 @@
                 </ListView>
                 
                 <!-- Items -->
-                <ListView ItemsSource="{Binding }" MaxHeight="600" Margin="10" Name="ItemsListView"
+                <ListView ItemsSource="{Binding Items.Data }" MaxHeight="600" Margin="10" Name="ItemsListView"
                           Grid.Column="0" Grid.Row="0">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Item" Width="200">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock TextWrapping="Wrap"  /> <!--Text="{Binding }"-->
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding Name }" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -123,14 +123,14 @@
                 </ListView>
                 
                 <!-- Substances -->
-                <ListView MaxHeight="600" Margin="10" Name="SubstancesListView"
-                          Grid.Column="0" Grid.Row="0"> <!--ItemsSource="{Binding }"-->
+                <ListView ItemsSource="{Binding Substances.Data }" MaxHeight="600" Margin="10" Name="SubstancesListView"
+                          Grid.Column="0" Grid.Row="0"> <!---->
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Substance" Width="200">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock TextWrapping="Wrap"  /><!--Text="{Binding}"-->
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding Name }" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -155,7 +155,7 @@
             <StackPanel Grid.Column = "1" x:Name="InputGrid">
                 <TextBlock Text ="Enter your weight:" Margin="0 10 0 10" HorizontalAlignment="Center"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBox x:Name="input" MinWidth="100" HorizontalAlignment="Center" Margin="0 0 0 0" VerticalAlignment="Center"/>
+                    <TextBox x:Name="inputWeight" MinWidth="100" HorizontalAlignment="Center" Margin="0 0 0 0" VerticalAlignment="Center"/>
                     <ComboBox x:Name="combobox" SelectedIndex="0" Margin="10 0 0 0">
                         <ComboBoxItem>kg</ComboBoxItem>
                         <ComboBoxItem>lbs</ComboBoxItem>
