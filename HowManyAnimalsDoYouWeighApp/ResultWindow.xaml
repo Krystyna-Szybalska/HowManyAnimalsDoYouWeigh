@@ -34,7 +34,7 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Did you know that?" Width="250">
+                        <GridViewColumn Header="Did you know that?" Width="500">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock x:Name="AnimalFunFact" Text="{Binding RandomFact}"/>                                
@@ -53,14 +53,19 @@
                         <GridViewColumn Header="You weigh approximately... " Width="250">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock TextWrapping="Wrap" Text="{Binding Name}" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding CalculatedAmount}" />
+                                        <TextBlock TextWrapping="Wrap" Text=" " />
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding Name}" />
+                                        <TextBlock TextWrapping="Wrap" Text="s" />
+                                    </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Did you know that?" Width="500">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock x:Name="ItemFunFact"/>                              
+                                    <TextBlock x:Name="ItemFunFact" Text="{Binding RandomFact}"/>                              
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -76,21 +81,21 @@
                         <GridViewColumn Header="If you where made of..." Width="250">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock TextWrapping="Wrap" Text="{Binding Name}" /> <!--binding visualization that is closest to the volume-->  
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Name}"/>   
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="You would take up approximately" Width="250">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock x:Name="Visualization"/>                                
+                                    <TextBlock x:Name="Visualization" Text="{Binding CalculatedVolume}"/>                                
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Which is about the same as" Width="250">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock x:Name="Visualization"/>                                
+                                    <TextBlock x:Name="Visualization" Text="{Binding ClosestVisualization}"/>                                
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

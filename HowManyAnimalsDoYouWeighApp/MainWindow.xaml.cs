@@ -134,7 +134,7 @@ namespace HowManyAnimalsDoYouWeighApp
                 // jeśli podane jest w lbs - ma przeliczyć na kg
                 if (combobox.SelectedIndex == 1)
                 {
-                    personWeight = ConvertWeight.LbsToKg(personWeight);
+                    personWeight = WeightAndVolumeConverters.LbsToKg(personWeight);
                 }
                 
                 //zrobić funkcję która aktywuje dobre rzeczy w result window na podstawie rzeczy aktywnych tutaj
@@ -146,11 +146,11 @@ namespace HowManyAnimalsDoYouWeighApp
                         mainResultViewModel.ActiveListView = ListViewName.Animals;
                         break;
                     case "Items":
-                        mainResultViewModel.ItemsResult.Data = await GetItemResult(); 
+                        mainResultViewModel.ItemsResult.Data = await GetItemResult(personWeight); 
                         mainResultViewModel.ActiveListView = ListViewName.Items;
                         break;
                     case "Substances":
-                        mainResultViewModel.SubstancesResult.Data = await GetSubstanceResult(); 
+                        mainResultViewModel.SubstancesResult.Data = await GetSubstanceResult(personWeight); 
                         mainResultViewModel.ActiveListView = ListViewName.Substances;
                     break;
                     default:
@@ -170,27 +170,35 @@ namespace HowManyAnimalsDoYouWeighApp
             ObservableCollection<AnimalResultDto> finalResults = new ObservableCollection<AnimalResultDto>(listResults);
             foreach (var result in finalResults)
             {
-                result.CalculatedAmount = ConvertWeight.KgToAnimal(personWeight, result.Weight);
+                result.CalculatedAmount = WeightAndVolumeConverters.KgToAnimal(personWeight, result.Weight);
             }
             return finalResults;
         }
         
-        private async Task<ObservableCollection<ItemResultDto>> GetItemResult()
+        private async Task<ObservableCollection<ItemResultDto>> GetItemResult(decimal personWeight)
         {
             var fullResults = await Client.GetItemResultAsync(); //TODO: pobierać tylko to co trzeba
             var listResults = fullResults.Where(a => MainViewModel.Items.SelectedData.Any(x => x.Name == a.Name))
                 .ToList();
             ObservableCollection<ItemResultDto> finalResults = new ObservableCollection<ItemResultDto>(listResults);
-
+            foreach (var result in finalResults)
+            {
+                result.CalculatedAmount = WeightAndVolumeConverters.KgToItem(personWeight, result.Weight);
+            }
             return finalResults;
         }
-        private async Task<ObservableCollection<SubstanceResultDto>> GetSubstanceResult()
+        private async Task<ObservableCollection<SubstanceResultDto>> GetSubstanceResult(decimal personWeight)
         {
             var fullResults = await Client.GetSubstanceResultAsync(); //TODO: pobierać tylko to co trzeba
             var listResults = fullResults.Where(a => MainViewModel.Substances.SelectedData.Any(x => x.Name == a.Name))
                 .ToList();
             ObservableCollection<SubstanceResultDto> finalResults = new ObservableCollection<SubstanceResultDto>(listResults);
 
+            foreach (var result in finalResults)
+            {
+                result.CalculatedVolume = WeightAndVolumeConverters.KgToItem(personWeight, result.Density);
+                result.ClosestVisualization = WeightAndVolumeConverters.FindClosestVisualization(result.CalculatedVolume);
+            }
             return finalResults;
         }
 
@@ -206,14 +214,22 @@ namespace HowManyAnimalsDoYouWeighApp
         
         private void ItemsListView_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            MainViewModel.Items.SelectedData.Add((ItemDto) ItemsListView.SelectedItem);
+            var selectedItem = (ItemDto)ItemsListView.SelectedItem;
+            if (MainViewModel.Items.SelectedData.Any(a => a.Name==selectedItem.Name)) { 
+                return;
+            }
+            MainViewModel.Items.SelectedData.Add(selectedItem);
             SelectedTextBlock.Text = String.Join("\n",MainViewModel.Items.SelectedData.Select(a => a.Name));
         }
         
         private void SubstancesListView_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            MainViewModel.Substances.SelectedData.Add((SubstanceDto) SubstancesListView.SelectedItem);
-            SelectedTextBlock.Text = String.Join("\n",MainViewModel.Substances.SelectedData.Select(a => a.Name)); //ładniejsze wyświetlanie
+            var selectedItem = (SubstanceDto)SubstancesListView.SelectedItem;
+            if (MainViewModel.Substances.SelectedData.Any(a => a.Name==selectedItem.Name)) { 
+                return;
+            }
+            MainViewModel.Substances.SelectedData.Add(selectedItem);
+            SelectedTextBlock.Text = String.Join("\n",MainViewModel.Substances.SelectedData.Select(a => a.Name)); 
         }
     }
 }

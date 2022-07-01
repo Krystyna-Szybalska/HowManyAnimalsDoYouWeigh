@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HowManyAnimalsDoYouWeighDomain
 {
-    public class ConvertWeight
+    public class WeightAndVolumeConverters
     {
         public static decimal LbsToKg(decimal weightInLbs)
         {
@@ -27,5 +27,11 @@ namespace HowManyAnimalsDoYouWeighDomain
             decimal volumeInLiters =  substanceDensity/weightInKg;
             return volumeInLiters;
         }
+
+        public static string FindClosestVisualization(decimal calculatedVolume)
+        {
+            throw new NotImplementedException();
+        }
+        
     }
 }
