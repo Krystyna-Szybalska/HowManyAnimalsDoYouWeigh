@@ -27,9 +27,8 @@
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock TextWrapping="Wrap" Text="{Binding CalculatedAmount}" />
-                                        <TextBlock TextWrapping="Wrap" Text=" " />
+                                        <TextBlock TextWrapping="Wrap" Text=" times " />
                                         <TextBlock TextWrapping="Wrap" Text="{Binding Name}" />
-                                        <TextBlock TextWrapping="Wrap" Text="s" />
                                     </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -55,9 +54,8 @@
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock TextWrapping="Wrap" Text="{Binding CalculatedAmount}" />
-                                        <TextBlock TextWrapping="Wrap" Text=" " />
+                                        <TextBlock TextWrapping="Wrap" Text=" times " />
                                         <TextBlock TextWrapping="Wrap" Text="{Binding Name}" />
-                                        <TextBlock TextWrapping="Wrap" Text="s" />
                                     </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
