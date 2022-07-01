@@ -1,7 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using HowManyAnimalsDoYouWeighApp.Data.Animals;
+using HowManyAnimalsDoYouWeighApp.Data.Items;
+using HowManyAnimalsDoYouWeighApp.Data.Substances;
+using HowManyAnimalsDoYouWeighApp.Services;
 using HowManyAnimalsDoYouWeighApp.ViewModels;
 using HowManyAnimalsDoYouWeighDomain;
 
@@ -13,11 +21,32 @@ namespace HowManyAnimalsDoYouWeighApp
     public partial class MainWindow
     {
         public MainViewModel MainViewModel { get; set; } = new();
+        public Client Client { get; set; } = new();
         public MainWindow()
         {
             InitializeComponent();
             this.DataContext = MainViewModel;
+            Loaded += OnLoaded;
         }
+
+        private async void OnLoaded(object sender, RoutedEventArgs e) {
+            foreach (var animal in await Client.GetAnimalsAsync())
+            {
+                MainViewModel.Animals.Data.Add(animal);
+            }
+
+            foreach (var item in await Client.GetItemsAsync())
+            {
+                MainViewModel.Items.Data.Add(item);
+            }
+
+            foreach (var substance in await Client.GetSubstancesAsync())
+            {
+                MainViewModel.Substances.Data.Add(substance);
+            }
+        }
+        
+        
         private void ActiveListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (AnimalsListView is not null) {
@@ -91,7 +120,7 @@ namespace HowManyAnimalsDoYouWeighApp
             }
         }
 
-        private void CalculateButton_Click(object sender, RoutedEventArgs e)
+        private async void CalculateButton_Click(object sender, RoutedEventArgs e)
         {
             // jeśli wpisana wartość jest niepoprawna - ma wyświetlić komunikat o błędzie
             if (!decimal.TryParse(inputWeight.Text, out var weight))
@@ -104,17 +133,79 @@ namespace HowManyAnimalsDoYouWeighApp
 
             else
             {
+                SelectedTextBlock.Text = String.Empty;
+
                 // jeśli podane jest w lbs - ma przeliczyć na kg
                 if (combobox.SelectedIndex == 1)
                 {
-                    weight = UnitConverter.ConvertLbsToKg(weight);
+                    weight = ConvertWeight.LbsToKg(weight);
                 }
-
-                // ma przeliczyć kg na zwierzęta i przekazac do nowego okna te listę
+                
                 //zrobić funkcję która aktywuje dobre rzeczy w result window na podstawie rzeczy aktywnych tutaj
-                ResultWindow resultWindow = new ResultWindow();
-                resultWindow.Show();
+                MainResultViewModel mainResultViewModel = new MainResultViewModel();
+                switch (SelectedTypeCombobox.Text)
+                {
+                    case "Animal":
+                        mainResultViewModel.AnimalsResult.Data = await GetAnimalResult(); 
+                        break;
+                    case "Item":
+                        mainResultViewModel.ItemsResult.Data = await GetItemResult(); 
+                        break;
+                    case "Substance":
+                        mainResultViewModel.SubstanesResult.Data = await GetSubstancesResult(); 
+                    break;
+                }
+               // ResultWindow resultWindow = new ResultWindow(mainResultViewModel);
+               // resultWindow.Show();
             }
+
+        }
+
+        private async Task<ObservableCollection<AnimalResultDto>> GetAnimalResult()
+        {
+            var fullResults = await Client.GetAnimalResultAsync(); //TODO: pobierać tylko to co trzeba
+            var listResults = fullResults.Where(a => MainViewModel.Animals.SelectedData.Any(x => x.Name == a.Name))
+                .ToList();
+            ObservableCollection<AnimalResultDto> finalResults = new ObservableCollection<AnimalResultDto>(listResults);
+
+            return finalResults;
+        }
+        
+        private async Task<List<ItemResultDto>> GetItemResult()
+        {
+            var fullResults = await Client.GetItemResultAsync(); //TODO: pobierać tylko to co trzeba
+            var listResults = fullResults.Where(a => MainViewModel.Items.SelectedData.Any(x => x.Name == a.Name))
+                .ToList();
+            ObservableCollection<ItemResultDto> finalResults = new ObservableCollection<ItemResultDto>(listResults);
+
+            return finalResults;
+        }
+        private async Task<List<SubstanceResultDto>> GetSubstanceResult()
+        {
+            var fullResults = await Client.GetSubstanceResultAsync(); //TODO: pobierać tylko to co trzeba
+            var listResults = fullResults.Where(a => MainViewModel.Substances.SelectedData.Any(x => x.Name == a.Name))
+                .ToList();
+            ObservableCollection<SubstanceResultDto> finalResults = new ObservableCollection<SubstanceResultDto>(listResults);
+
+            return finalResults;
+        }
+
+        private void AnimalsListView_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MainViewModel.Animals.SelectedData.Add((AnimalDto) AnimalsListView.SelectedItem);
+            SelectedTextBlock.Text = String.Join("\n",MainViewModel.Animals.SelectedData.Select(a => a.Name)); //ładniejsze wyświetlanie
+        }
+        
+        private void ItemsListView_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MainViewModel.Items.SelectedData.Add((ItemDto) ItemsListView.SelectedItem);
+            SelectedTextBlock.Text = String.Join("\n",MainViewModel.Items.SelectedData.Select(a => a.Name)); //ładniejsze wyświetlanie
+        }
+        
+        private void SubstancesListView_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MainViewModel.Substances.SelectedData.Add((SubstanceDto) SubstancesListView.SelectedItem);
+            SelectedTextBlock.Text = String.Join("\n",MainViewModel.Substances.SelectedData.Select(a => a.Name)); //ładniejsze wyświetlanie
         }
     }
 }

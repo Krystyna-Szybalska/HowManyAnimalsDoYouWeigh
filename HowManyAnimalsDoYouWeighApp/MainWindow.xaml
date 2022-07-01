@@ -35,7 +35,7 @@
             
             <TextBlock Grid.Column="0" Grid.Row="1" Text="Choose the kind of object you want to compare your weight to: " Margin="25 0 0 0 " VerticalAlignment="Center"/>
 
-            <ComboBox SelectedValuePath="Content" SelectionChanged="ActiveListView_OnSelectionChanged" 
+            <ComboBox x:Name="SelectedTypeCombobox" SelectedValuePath="Content" SelectionChanged="ActiveListView_OnSelectionChanged" 
                       Margin=" 5 10" Grid.Row="1" Grid.Column="1" SelectedValue="{Binding ActiveListView}">
                 <ComboBoxItem>Animals</ComboBoxItem>
                 <ComboBoxItem>Items</ComboBoxItem>
@@ -60,31 +60,18 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width = "3*"/>
                 <ColumnDefinition Width = "2*"/>
+                <ColumnDefinition Width = "2*"/>
             </Grid.ColumnDefinitions>
             
             <!-- Animals -->
                 <ListView ItemsSource="{Binding Animals.Data }" MaxHeight="600" Margin="10" Width="450" Name="AnimalsListView"
-                          Grid.Column="0" Grid.Row="0">
+                          Grid.Column="0" Grid.Row="0" MouseDoubleClick="AnimalsListView_OnMouseDoubleClick">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Animal" Width="200">
-                                <GridViewColumn.CellTemplate>
+                                <GridViewColumn.CellTemplate >
                                     <DataTemplate>
-                                        <TextBlock TextWrapping="Wrap" Text="{Binding Name }" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Select" Width="50">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <CheckBox/>                                
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Selected animals" Width="200">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock/> <!-- it should show list of selected animals-->                               
+                                        <TextBlock x:Name="AnimalNameTextBlock" TextWrapping="Wrap" Text="{Binding Name }"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -111,13 +98,6 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Selected items" Width="150">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock/>                                
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -141,18 +121,15 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Selected substances" Width="200">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock/>                                
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>
             
-            <StackPanel Grid.Column = "1" x:Name="InputGrid">
+            <StackPanel Grid.Column = "1" x:Name="SelectedTable" Margin="10 15">
+                <TextBlock Text="Selected" HorizontalAlignment="Center"/>
+                <TextBlock x:Name="SelectedTextBlock" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Grid.Column = "2" x:Name="InputGrid">
                 <TextBlock Text ="Enter your weight:" Margin="0 10 0 10" HorizontalAlignment="Center"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBox x:Name="inputWeight" MinWidth="100" HorizontalAlignment="Center" Margin="0 0 0 0" VerticalAlignment="Center"/>

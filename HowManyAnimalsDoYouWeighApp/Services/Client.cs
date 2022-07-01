@@ -17,7 +17,7 @@ namespace HowManyAnimalsDoYouWeighApp.Services
 
         public Client()
         {
-            _client = new RestClient("https://localhost:5001/api");
+            _client = new RestClient("http://localhost:5000/api");
             _client.UseNewtonsoftJson();
         }
 
