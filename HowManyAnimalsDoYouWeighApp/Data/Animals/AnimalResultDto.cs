@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using HowManyAnimalsDoYouWeighApp.Data.AnimalFunFacts;
 
@@ -7,6 +8,8 @@ namespace HowManyAnimalsDoYouWeighApp.Data.Animals
     {
         public string Name { get; set; }
         public decimal Weight { get; set; }
-        public ICollection<AnimalFunFactDto> FunFacts { get; set; }
+        public List<AnimalFunFactDto> FunFacts { get; set; }
+        public decimal CalculatedAmount { get; set; }
+        public string RandomFact => FunFacts[new Random().Next(0, FunFacts.Count)].Text;
     }
 }

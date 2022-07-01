@@ -12,17 +12,17 @@ namespace HowManyAnimalsDoYouWeighDomain
             return weightInKg;
         }
         
-        public decimal KgToAnimal(decimal weightInKg, decimal animalWeight)
+        public static decimal KgToAnimal(decimal weightInKg, decimal animalWeight)
         {
             decimal weightInAnimal = weightInKg / animalWeight;
             return weightInAnimal;
         }
-        public decimal KgToItem(decimal weightInKg, decimal itemWeight)
+        public static decimal KgToItem(decimal weightInKg, decimal itemWeight)
         {
             decimal weightInItem = weightInKg / itemWeight;
             return weightInItem;
         }
-        public decimal KgToSubstanceVolume(decimal weightInKg, decimal substanceDensity)
+        public static decimal KgToSubstanceVolume(decimal weightInKg, decimal substanceDensity)
         {
             decimal volumeInLiters =  substanceDensity/weightInKg;
             return volumeInLiters;

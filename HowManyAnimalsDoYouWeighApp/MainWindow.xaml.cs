@@ -45,8 +45,7 @@ namespace HowManyAnimalsDoYouWeighApp
                 MainViewModel.Substances.Data.Add(substance);
             }
         }
-        
-        
+
         private void ActiveListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (AnimalsListView is not null) {
@@ -123,55 +122,60 @@ namespace HowManyAnimalsDoYouWeighApp
         private async void CalculateButton_Click(object sender, RoutedEventArgs e)
         {
             // jeśli wpisana wartość jest niepoprawna - ma wyświetlić komunikat o błędzie
-            if (!decimal.TryParse(inputWeight.Text, out var weight))
+            if (!decimal.TryParse(inputWeight.Text, out var personWeight))
             {
                 ErrorMessage.Visibility = Visibility.Visible;
                 ErrorMessage.Text = "Type in a valid number";
                 inputWeight.Text = null;
                 ErrorMessage.FontStyle = FontStyles.Italic;
             }
-
             else
             {
-                SelectedTextBlock.Text = String.Empty;
-
                 // jeśli podane jest w lbs - ma przeliczyć na kg
                 if (combobox.SelectedIndex == 1)
                 {
-                    weight = ConvertWeight.LbsToKg(weight);
+                    personWeight = ConvertWeight.LbsToKg(personWeight);
                 }
                 
                 //zrobić funkcję która aktywuje dobre rzeczy w result window na podstawie rzeczy aktywnych tutaj
                 MainResultViewModel mainResultViewModel = new MainResultViewModel();
                 switch (SelectedTypeCombobox.Text)
                 {
-                    case "Animal":
-                        mainResultViewModel.AnimalsResult.Data = await GetAnimalResult(); 
+                    case "Animals":
+                        mainResultViewModel.AnimalsResult.Data = await GetAnimalResult(personWeight);
+                        mainResultViewModel.ActiveListView = ListViewName.Animals;
                         break;
-                    case "Item":
+                    case "Items":
                         mainResultViewModel.ItemsResult.Data = await GetItemResult(); 
+                        mainResultViewModel.ActiveListView = ListViewName.Items;
                         break;
-                    case "Substance":
-                        mainResultViewModel.SubstanesResult.Data = await GetSubstancesResult(); 
+                    case "Substances":
+                        mainResultViewModel.SubstancesResult.Data = await GetSubstanceResult(); 
+                        mainResultViewModel.ActiveListView = ListViewName.Substances;
                     break;
+                    default:
+                        throw new InvalidOperationException();
                 }
-               // ResultWindow resultWindow = new ResultWindow(mainResultViewModel);
-               // resultWindow.Show();
+               ResultWindow resultWindow = new ResultWindow(mainResultViewModel);
+               resultWindow.Show();
+               this.Close();
             }
-
         }
 
-        private async Task<ObservableCollection<AnimalResultDto>> GetAnimalResult()
+        private async Task<ObservableCollection<AnimalResultDto>> GetAnimalResult(decimal personWeight)
         {
             var fullResults = await Client.GetAnimalResultAsync(); //TODO: pobierać tylko to co trzeba
             var listResults = fullResults.Where(a => MainViewModel.Animals.SelectedData.Any(x => x.Name == a.Name))
                 .ToList();
             ObservableCollection<AnimalResultDto> finalResults = new ObservableCollection<AnimalResultDto>(listResults);
-
+            foreach (var result in finalResults)
+            {
+                result.CalculatedAmount = ConvertWeight.KgToAnimal(personWeight, result.Weight);
+            }
             return finalResults;
         }
         
-        private async Task<List<ItemResultDto>> GetItemResult()
+        private async Task<ObservableCollection<ItemResultDto>> GetItemResult()
         {
             var fullResults = await Client.GetItemResultAsync(); //TODO: pobierać tylko to co trzeba
             var listResults = fullResults.Where(a => MainViewModel.Items.SelectedData.Any(x => x.Name == a.Name))
@@ -180,7 +184,7 @@ namespace HowManyAnimalsDoYouWeighApp
 
             return finalResults;
         }
-        private async Task<List<SubstanceResultDto>> GetSubstanceResult()
+        private async Task<ObservableCollection<SubstanceResultDto>> GetSubstanceResult()
         {
             var fullResults = await Client.GetSubstanceResultAsync(); //TODO: pobierać tylko to co trzeba
             var listResults = fullResults.Where(a => MainViewModel.Substances.SelectedData.Any(x => x.Name == a.Name))
@@ -192,14 +196,18 @@ namespace HowManyAnimalsDoYouWeighApp
 
         private void AnimalsListView_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            MainViewModel.Animals.SelectedData.Add((AnimalDto) AnimalsListView.SelectedItem);
-            SelectedTextBlock.Text = String.Join("\n",MainViewModel.Animals.SelectedData.Select(a => a.Name)); //ładniejsze wyświetlanie
+            var selectedItem = (AnimalDto)AnimalsListView.SelectedItem;
+            if (MainViewModel.Animals.SelectedData.Any(a => a.Name==selectedItem.Name)) { //zrobic w pozostalych
+                return;
+            }
+            MainViewModel.Animals.SelectedData.Add(selectedItem);
+            SelectedTextBlock.Text = String.Join("\n",MainViewModel.Animals.SelectedData.Select(a => a.Name)); 
         }
         
         private void ItemsListView_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             MainViewModel.Items.SelectedData.Add((ItemDto) ItemsListView.SelectedItem);
-            SelectedTextBlock.Text = String.Join("\n",MainViewModel.Items.SelectedData.Select(a => a.Name)); //ładniejsze wyświetlanie
+            SelectedTextBlock.Text = String.Join("\n",MainViewModel.Items.SelectedData.Select(a => a.Name));
         }
         
         private void SubstancesListView_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)

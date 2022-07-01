@@ -17,21 +17,27 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <ListView ItemsSource="{Binding AnimalsResult.Data }" MaxHeight="600" Margin="10" Name="AnimalsResultsListView"
+            <ListView ItemsSource="{Binding AnimalsResult.Data }" MaxHeight="600" Margin="10" 
+                      Name="AnimalsResultsListView"
                       Grid.Column="0" Grid.Row="0"> 
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="You weigh approximately... " Width="250">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock TextWrapping="Wrap" Text="{Binding Name}" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding CalculatedAmount}" />
+                                        <TextBlock TextWrapping="Wrap" Text=" " />
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding Name}" />
+                                        <TextBlock TextWrapping="Wrap" Text="s" />
+                                    </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Did you know that?" Width="500">
+                        <GridViewColumn Header="Did you know that?" Width="250">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock x:Name="AnimalFunFact"/>                                
+                                    <TextBlock x:Name="AnimalFunFact" Text="{Binding RandomFact}"/>                                
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -39,7 +45,8 @@
                 </ListView.View>
             </ListView>
 
-            <ListView ItemsSource="{Binding ItemsResult.Data }" MaxHeight="600" Margin="10" Name="ItemsResultsListView"
+            <ListView ItemsSource="{Binding ItemsResult.Data }" MaxHeight="600" Margin="10" 
+                      Name="ItemsResultsListView"
                       Grid.Column="0" Grid.Row="0"> 
                 <ListView.View>
                     <GridView>
@@ -61,7 +68,8 @@
                 </ListView.View>
             </ListView>
 
-            <ListView ItemsSource="{Binding SubstancesResult.Data }" MaxHeight="600" Margin="10" Name="SubstancesResultsListView"
+            <ListView ItemsSource="{Binding SubstancesResult.Data }" MaxHeight="600" Margin="10" 
+                      Name="SubstancesResultsListView"
                       Grid.Column="0" Grid.Row="0">
                 <ListView.View>
                     <GridView>

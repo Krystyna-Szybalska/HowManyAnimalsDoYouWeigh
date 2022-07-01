@@ -46,7 +46,7 @@ namespace HowManyAnimalsDoYouWeighAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HowManyAnimalsDoYouWeighAPI v1"));
             }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
 

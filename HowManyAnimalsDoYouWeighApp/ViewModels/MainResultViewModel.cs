@@ -5,5 +5,7 @@ namespace HowManyAnimalsDoYouWeighApp.ViewModels
         public SubstancesResultViewModel SubstancesResult { get; set; } = new();
         public ItemsResultViewModel ItemsResult { get; set; } = new();
         public AnimalsResultViewModel AnimalsResult { get; set; } = new();
+        
+        public string ActiveListView { get; set; } = ListViewName.Animals;
     }
 }

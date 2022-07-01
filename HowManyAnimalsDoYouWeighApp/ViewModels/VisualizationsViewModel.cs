@@ -8,6 +8,5 @@ namespace HowManyAnimalsDoYouWeighApp.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public ObservableCollection<VisualizationDto> Data { get; set; } = new();
-        public ObservableCollection<VisualizationDto> SelectedData { get; set; } = new();
     }
 }
