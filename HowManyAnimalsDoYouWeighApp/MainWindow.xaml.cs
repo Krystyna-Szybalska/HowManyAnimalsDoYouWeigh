@@ -9,6 +9,7 @@ using System.Windows.Input;
 using HowManyAnimalsDoYouWeighApp.Data.Animals;
 using HowManyAnimalsDoYouWeighApp.Data.Items;
 using HowManyAnimalsDoYouWeighApp.Data.Substances;
+using HowManyAnimalsDoYouWeighApp.Data.Visualizations;
 using HowManyAnimalsDoYouWeighApp.Services;
 using HowManyAnimalsDoYouWeighApp.ViewModels;
 using HowManyAnimalsDoYouWeighDomain;
@@ -134,7 +135,7 @@ namespace HowManyAnimalsDoYouWeighApp
                 // jeśli podane jest w lbs - ma przeliczyć na kg
                 if (combobox.SelectedIndex == 1)
                 {
-                    personWeight = WeightAndVolumeConverters.LbsToKg(personWeight);
+                    personWeight = WeightConverters.LbsToKg(personWeight);
                 }
                 
                 //zrobić funkcję która aktywuje dobre rzeczy w result window na podstawie rzeczy aktywnych tutaj
@@ -199,7 +200,7 @@ namespace HowManyAnimalsDoYouWeighApp
             ObservableCollection<AnimalResultDto> finalResults = new ObservableCollection<AnimalResultDto>(listResults);
             foreach (var result in finalResults)
             {
-                result.CalculatedAmount = WeightAndVolumeConverters.KgToAnimal(personWeight, result.Weight);
+                result.CalculatedAmount = WeightConverters.KgToAnimal(personWeight, result.Weight);
             }
             return finalResults;
         }
@@ -211,7 +212,7 @@ namespace HowManyAnimalsDoYouWeighApp
             ObservableCollection<ItemResultDto> finalResults = new ObservableCollection<ItemResultDto>(listResults);
             foreach (var result in finalResults)
             {
-                result.CalculatedAmount = WeightAndVolumeConverters.KgToItem(personWeight, result.Weight);
+                result.CalculatedAmount = WeightConverters.KgToItem(personWeight, result.Weight);
             }
             return finalResults;
         }
@@ -224,11 +225,29 @@ namespace HowManyAnimalsDoYouWeighApp
 
             foreach (var result in finalResults)
             {
-                result.CalculatedVolume = WeightAndVolumeConverters.KgToItem(personWeight, result.Density);
-                result.ClosestVisualization = WeightAndVolumeConverters.FindClosestVisualization(result.CalculatedVolume);
+                result.CalculatedVolume = WeightConverters.KgToItem(personWeight, result.Density);
+                decimal valueOfClosestVisualization = FindClosestVisualization.FindValue(result.CalculatedVolume, await GetVisualizationVolume());
+                result.ClosestVisualization = (await GetVisualizationResult(valueOfClosestVisualization)).First(a=>a.Volume==valueOfClosestVisualization).Name;
             }
             return finalResults;
         }
 
+        private async Task<ObservableCollection<VisualizationDto>> GetVisualizationResult(decimal volume)
+        {
+            var visualizations = await Client.GetVisualizationAsync();
+            ObservableCollection<VisualizationDto> finalResults = new ObservableCollection<VisualizationDto>(visualizations.ToList());
+            return finalResults;
+        }
+        
+        private async Task<List<decimal>> GetVisualizationVolume()
+        {
+            var visualizations = await Client.GetVisualizationAsync();
+            List<decimal> finalResults = new List<decimal>();
+            foreach (var visualization in visualizations)
+            {
+                finalResults.Add(visualization.Volume);
+            }
+            return finalResults;
+        }
     }
 }

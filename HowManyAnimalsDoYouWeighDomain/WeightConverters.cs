@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HowManyAnimalsDoYouWeighDomain
 {
-    public class WeightAndVolumeConverters //todo: rename
+    public class WeightConverters
     {
         public static decimal LbsToKg(decimal weightInLbs)
         {
@@ -15,23 +15,17 @@ namespace HowManyAnimalsDoYouWeighDomain
         public static decimal KgToAnimal(decimal weightInKg, decimal animalWeight)
         {
             decimal weightInAnimal = weightInKg / animalWeight;
-            return weightInAnimal;
+            return Math.Round(weightInAnimal, 3);
         }
         public static decimal KgToItem(decimal weightInKg, decimal itemWeight)
         {
             decimal weightInItem = weightInKg / itemWeight;
-            return weightInItem;
+            return Math.Round(weightInItem, 3);
         }
         public static decimal KgToSubstanceVolume(decimal weightInKg, decimal substanceDensity)
         {
             decimal volumeInLiters =  substanceDensity/weightInKg;
-            return volumeInLiters;
+            return Math.Round(volumeInLiters, 3);
         }
-
-        public static string FindClosestVisualization(decimal calculatedVolume) //todo: to new class
-        {
-            throw new NotImplementedException();
-        }
-        
     }
 }
