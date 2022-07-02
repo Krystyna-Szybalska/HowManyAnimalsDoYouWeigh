@@ -12,7 +12,7 @@ namespace HowManyAnimalsDoYouWeighAPI.Configurations
                 .HasKey(a => a.Id);
 
             builder
-                .HasMany<AnimalFunFact>(a => a.FunFacts) //TODO check if correct
+                .HasMany<AnimalFunFact>(a => a.FunFacts)
                 .WithOne()
                 .HasForeignKey(a => a.AnimalId);
         }
