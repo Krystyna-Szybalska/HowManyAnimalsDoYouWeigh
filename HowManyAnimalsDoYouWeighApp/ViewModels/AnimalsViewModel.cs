@@ -1,10 +1,6 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Windows.Controls;
 using HowManyAnimalsDoYouWeighApp.Data.Animals;
-using HowManyAnimalsDoYouWeighDomain;
 
 namespace HowManyAnimalsDoYouWeighApp.ViewModels
 {

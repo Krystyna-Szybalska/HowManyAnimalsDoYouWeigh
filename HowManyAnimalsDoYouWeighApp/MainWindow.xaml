@@ -64,7 +64,7 @@
             </Grid.ColumnDefinitions>
             
             <!-- Animals -->
-                <ListView ItemsSource="{Binding Animals.Data }" MaxHeight="600" Margin="10" Width="450" Name="AnimalsListView"
+                <ListView ItemsSource="{Binding Animals.Data }" MaxHeight="600" Margin="20 10 10 10" Width="450" Name="AnimalsListView"
                           Grid.Column="0" Grid.Row="0"  MouseDoubleClick="AnimalsListView_OnMouseDoubleClick">
                     <ListView.View>
                         <GridView>
@@ -80,7 +80,7 @@
                 </ListView>
                 
                 <!-- Items -->
-                <ListView ItemsSource="{Binding Items.Data }" MaxHeight="600" Margin="10" Name="ItemsListView"
+                <ListView ItemsSource="{Binding Items.Data }" MaxHeight="600" Margin="20 10 10 10" Name="ItemsListView"
                           Grid.Column="0" Grid.Row="0" MouseDoubleClick="ItemsListView_OnMouseDoubleClick">
                     <ListView.View>
                         <GridView>
@@ -96,7 +96,7 @@
                 </ListView>
                 
                 <!-- Substances -->
-                <ListView ItemsSource="{Binding Substances.Data }" MaxHeight="600" Margin="10" Name="SubstancesListView"
+                <ListView ItemsSource="{Binding Substances.Data }" MaxHeight="600" Margin="20 10 10 10" Name="SubstancesListView"
                           Grid.Column="0" Grid.Row="0" MouseDoubleClick="SubstancesListView_OnMouseDoubleClick"> 
                     <ListView.View>
                         <GridView>
@@ -111,12 +111,12 @@
                     </ListView.View>
                 </ListView>
             
-            <StackPanel Grid.Column = "1" x:Name="SelectedTable" Margin="10 15">
+            <StackPanel Grid.Column = "1" x:Name="SelectedTable" Margin="10 15 0 15">
                 <TextBlock Text="Selected" Margin="0 0 0 10" HorizontalAlignment="Center"/>
                 <TextBlock x:Name="SelectedTextBlock" HorizontalAlignment="Center"/>
             </StackPanel>
             <StackPanel Grid.Column = "2" x:Name="InputGrid">
-                <TextBlock Text ="Enter your weight:" Margin="0 10 0 10" HorizontalAlignment="Center"/>
+                <TextBlock Text ="Enter your weight:" Margin="0 10 20 10" HorizontalAlignment="Center"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBox x:Name="inputWeight" MinWidth="100" HorizontalAlignment="Center" Margin="0 0 0 0" VerticalAlignment="Center"/>
                     <ComboBox x:Name="combobox" SelectedIndex="0" Margin="10 0 0 0">

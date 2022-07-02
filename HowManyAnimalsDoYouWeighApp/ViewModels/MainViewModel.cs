@@ -1,6 +1,4 @@
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using HowManyAnimalsDoYouWeighDomain;
 
 namespace HowManyAnimalsDoYouWeighApp.ViewModels
 {

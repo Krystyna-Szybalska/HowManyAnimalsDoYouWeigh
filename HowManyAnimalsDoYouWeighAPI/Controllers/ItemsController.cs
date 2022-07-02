@@ -1,10 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HowManyAnimalsDoYouWeighAPI;
-using HowManyAnimalsDoYouWeighAPI.FunFacts;
-using HowManyAnimalsDoYouWeighAPI.ItemFunFacts;
 using HowManyAnimalsDoYouWeighAPI.Items;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;

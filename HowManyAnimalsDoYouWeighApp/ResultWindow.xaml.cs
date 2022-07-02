@@ -33,8 +33,9 @@ namespace HowManyAnimalsDoYouWeighApp
             }
         }
         private void OkButtonClick(object sender, RoutedEventArgs e)
-        {
-            this.Close();
+        {            
+            new MainWindow().Show();
+            Close();
         }
     }
 }

@@ -1,5 +1,3 @@
-using System;
-
 namespace HowManyAnimalsDoYouWeighAPI.Visualizations
 {
     public class VisualizationDto

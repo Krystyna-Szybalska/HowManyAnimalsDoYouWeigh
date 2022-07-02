@@ -159,6 +159,7 @@ namespace HowManyAnimalsDoYouWeighApp
                 }
                ResultWindow resultWindow = new ResultWindow(mainResultViewModel);
                resultWindow.Show();
+               Close();
             }
         }
 
