@@ -49,6 +49,11 @@ namespace HowManyAnimalsDoYouWeighApp
 
         private void ActiveListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            SelectedTextBlock.Text = String.Empty;
+            MainViewModel.Items.SelectedData.Clear();
+            MainViewModel.Animals.SelectedData.Clear();
+            MainViewModel.Substances.SelectedData.Clear();
+            
             if (AnimalsListView is not null) {
                 AnimalsListView.Visibility = MainViewModel.ActiveListView == ListViewName.Animals
                     ? Visibility.Visible
