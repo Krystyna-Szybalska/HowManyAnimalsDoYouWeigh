@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HowManyAnimalsDoYouWeighDomain
 {
-    public class WeightAndVolumeConverters
+    public class WeightAndVolumeConverters //todo: rename
     {
         public static decimal LbsToKg(decimal weightInLbs)
         {
@@ -28,7 +28,7 @@ namespace HowManyAnimalsDoYouWeighDomain
             return volumeInLiters;
         }
 
-        public static string FindClosestVisualization(decimal calculatedVolume)
+        public static string FindClosestVisualization(decimal calculatedVolume) //todo: to new class
         {
             throw new NotImplementedException();
         }

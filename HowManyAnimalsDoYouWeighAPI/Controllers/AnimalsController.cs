@@ -23,34 +23,6 @@ namespace HowManyAnimalsDoYouWeighAPI.Controllers
         public async Task<List<AnimalDto>> Get()
         {
             var animals = await _context.Animals.ToListAsync();
-            // _context.Animals.Add(new Animal
-            // {
-            //     Id = Guid.NewGuid(),
-            //     Name = "Dog (chihuahua)",
-            //     Weight = 2.5m,
-            //     FunFacts = new List<AnimalFunFact>
-            //     {
-            //         new AnimalFunFact
-            //         {
-            //             Id = Guid.NewGuid(),
-            //             Text = "szczeka i morduje"
-            //         }
-            //     },
-            // });
-            // _context.Animals.Add(new Animal {
-            //     Id = Guid.NewGuid(),
-            //     Name = "Dog (beagle)",
-            //     Weight = 16m,
-            //     FunFacts = new List<AnimalFunFact>
-            //     {
-            //         new AnimalFunFact
-            //         {
-            //             Id = Guid.NewGuid(),
-            //             Text = "wyje i tropi"
-            //         }
-            //     },
-            // });
-            // _context.SaveChanges();
             return animals.Select(a => a.Adapt<AnimalDto>()).ToList();
         }
         

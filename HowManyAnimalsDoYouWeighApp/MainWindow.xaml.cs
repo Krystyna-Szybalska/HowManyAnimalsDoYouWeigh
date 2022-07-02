@@ -25,7 +25,7 @@ namespace HowManyAnimalsDoYouWeighApp
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = MainViewModel;
+            DataContext = MainViewModel;
             Loaded += OnLoaded;
         }
 
@@ -162,46 +162,6 @@ namespace HowManyAnimalsDoYouWeighApp
             }
         }
 
-        private async Task<ObservableCollection<AnimalResultDto>> GetAnimalResult(decimal personWeight)
-        {
-            var fullResults = await Client.GetAnimalResultAsync(); //TODO: pobierać tylko to co trzeba
-            var listResults = fullResults.Where(a => MainViewModel.Animals.SelectedData.Any(x => x.Name == a.Name))
-                .ToList();
-            ObservableCollection<AnimalResultDto> finalResults = new ObservableCollection<AnimalResultDto>(listResults);
-            foreach (var result in finalResults)
-            {
-                result.CalculatedAmount = WeightAndVolumeConverters.KgToAnimal(personWeight, result.Weight);
-            }
-            return finalResults;
-        }
-        
-        private async Task<ObservableCollection<ItemResultDto>> GetItemResult(decimal personWeight)
-        {
-            var fullResults = await Client.GetItemResultAsync(); //TODO: pobierać tylko to co trzeba
-            var listResults = fullResults.Where(a => MainViewModel.Items.SelectedData.Any(x => x.Name == a.Name))
-                .ToList();
-            ObservableCollection<ItemResultDto> finalResults = new ObservableCollection<ItemResultDto>(listResults);
-            foreach (var result in finalResults)
-            {
-                result.CalculatedAmount = WeightAndVolumeConverters.KgToItem(personWeight, result.Weight);
-            }
-            return finalResults;
-        }
-        private async Task<ObservableCollection<SubstanceResultDto>> GetSubstanceResult(decimal personWeight)
-        {
-            var fullResults = await Client.GetSubstanceResultAsync(); //TODO: pobierać tylko to co trzeba
-            var listResults = fullResults.Where(a => MainViewModel.Substances.SelectedData.Any(x => x.Name == a.Name))
-                .ToList();
-            ObservableCollection<SubstanceResultDto> finalResults = new ObservableCollection<SubstanceResultDto>(listResults);
-
-            foreach (var result in finalResults)
-            {
-                result.CalculatedVolume = WeightAndVolumeConverters.KgToItem(personWeight, result.Density);
-                result.ClosestVisualization = WeightAndVolumeConverters.FindClosestVisualization(result.CalculatedVolume);
-            }
-            return finalResults;
-        }
-
         private void AnimalsListView_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var selectedItem = (AnimalDto)AnimalsListView.SelectedItem;
@@ -231,5 +191,44 @@ namespace HowManyAnimalsDoYouWeighApp
             MainViewModel.Substances.SelectedData.Add(selectedItem);
             SelectedTextBlock.Text = String.Join("\n",MainViewModel.Substances.SelectedData.Select(a => a.Name)); 
         }
+        private async Task<ObservableCollection<AnimalResultDto>> GetAnimalResult(decimal personWeight)
+        {
+            var fullResults = await Client.GetAnimalResultAsync(); //TODO: pobierać tylko to co trzeba
+            var listResults = fullResults.Where(a => MainViewModel.Animals.SelectedData.Any(x => x.Name == a.Name))
+                .ToList();
+            ObservableCollection<AnimalResultDto> finalResults = new ObservableCollection<AnimalResultDto>(listResults);
+            foreach (var result in finalResults)
+            {
+                result.CalculatedAmount = WeightAndVolumeConverters.KgToAnimal(personWeight, result.Weight);
+            }
+            return finalResults;
+        }
+        private async Task<ObservableCollection<ItemResultDto>> GetItemResult(decimal personWeight)
+        {
+            var fullResults = await Client.GetItemResultAsync(); //TODO: pobierać tylko to co trzeba
+            var listResults = fullResults.Where(a => MainViewModel.Items.SelectedData.Any(x => x.Name == a.Name))
+                .ToList();
+            ObservableCollection<ItemResultDto> finalResults = new ObservableCollection<ItemResultDto>(listResults);
+            foreach (var result in finalResults)
+            {
+                result.CalculatedAmount = WeightAndVolumeConverters.KgToItem(personWeight, result.Weight);
+            }
+            return finalResults;
+        }
+        private async Task<ObservableCollection<SubstanceResultDto>> GetSubstanceResult(decimal personWeight)
+        {
+            var fullResults = await Client.GetSubstanceResultAsync(); //TODO: pobierać tylko to co trzeba
+            var listResults = fullResults.Where(a => MainViewModel.Substances.SelectedData.Any(x => x.Name == a.Name))
+                .ToList();
+            ObservableCollection<SubstanceResultDto> finalResults = new ObservableCollection<SubstanceResultDto>(listResults);
+
+            foreach (var result in finalResults)
+            {
+                result.CalculatedVolume = WeightAndVolumeConverters.KgToItem(personWeight, result.Density);
+                result.ClosestVisualization = WeightAndVolumeConverters.FindClosestVisualization(result.CalculatedVolume);
+            }
+            return finalResults;
+        }
+
     }
 }
