@@ -193,7 +193,7 @@ namespace HowManyAnimalsDoYouWeighApp
         }
         private async Task<ObservableCollection<AnimalResultDto>> GetAnimalResult(decimal personWeight)
         {
-            var fullResults = await Client.GetAnimalResultAsync(); //TODO: pobierać tylko to co trzeba
+            var fullResults = await Client.GetAnimalResultAsync(); 
             var listResults = fullResults.Where(a => MainViewModel.Animals.SelectedData.Any(x => x.Name == a.Name))
                 .ToList();
             ObservableCollection<AnimalResultDto> finalResults = new ObservableCollection<AnimalResultDto>(listResults);
@@ -205,7 +205,7 @@ namespace HowManyAnimalsDoYouWeighApp
         }
         private async Task<ObservableCollection<ItemResultDto>> GetItemResult(decimal personWeight)
         {
-            var fullResults = await Client.GetItemResultAsync(); //TODO: pobierać tylko to co trzeba
+            var fullResults = await Client.GetItemResultAsync();
             var listResults = fullResults.Where(a => MainViewModel.Items.SelectedData.Any(x => x.Name == a.Name))
                 .ToList();
             ObservableCollection<ItemResultDto> finalResults = new ObservableCollection<ItemResultDto>(listResults);
@@ -217,7 +217,7 @@ namespace HowManyAnimalsDoYouWeighApp
         }
         private async Task<ObservableCollection<SubstanceResultDto>> GetSubstanceResult(decimal personWeight)
         {
-            var fullResults = await Client.GetSubstanceResultAsync(); //TODO: pobierać tylko to co trzeba
+            var fullResults = await Client.GetSubstanceResultAsync(); 
             var listResults = fullResults.Where(a => MainViewModel.Substances.SelectedData.Any(x => x.Name == a.Name))
                 .ToList();
             ObservableCollection<SubstanceResultDto> finalResults = new ObservableCollection<SubstanceResultDto>(listResults);

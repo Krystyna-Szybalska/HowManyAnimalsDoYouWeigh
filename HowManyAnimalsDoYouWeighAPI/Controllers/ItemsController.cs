@@ -32,7 +32,7 @@ namespace HowManyAnimalsDoYouWeighAPI.Controllers
         [HttpGet("result")]
         public async Task<List<ItemResultDto>> GetResult()
         {
-            var items = await _context.Items.ToListAsync();
+            var items = await _context.Items.Include(a=>a.RandomFacts).ToListAsync();
             return items.Select(a => a.Adapt<ItemResultDto>()).ToList();
         }
     }

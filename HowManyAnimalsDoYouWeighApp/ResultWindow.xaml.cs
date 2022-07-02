@@ -1,17 +1,14 @@
 using System.Windows;
-using System.Windows.Controls;
 using HowManyAnimalsDoYouWeighApp.ViewModels;
-using HowManyAnimalsDoYouWeighDomain;
 
 namespace HowManyAnimalsDoYouWeighApp
 {
     public partial class ResultWindow
     {
-        public MainResultViewModel MainResultViewModel = new MainResultViewModel();
         public ResultWindow(MainResultViewModel mainResultViewModel)
         {
             InitializeComponent();
-            this.DataContext = mainResultViewModel; //is this even correct?
+            this.DataContext = mainResultViewModel;
             SetListViewVisibility(mainResultViewModel);
         }
 
