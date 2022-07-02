@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace HowManyAnimalsDoYouWeighDomain
@@ -12,20 +13,24 @@ namespace HowManyAnimalsDoYouWeighDomain
             return weightInKg;
         }
         
-        public static decimal KgToAnimal(decimal weightInKg, decimal animalWeight)
+        public static string KgToAnimal(decimal weightInKg, decimal animalWeight)
         {
             decimal weightInAnimal = weightInKg / animalWeight;
-            return Math.Round(weightInAnimal, 3);
+            return ToScientificNotation(weightInAnimal);
         }
-        public static decimal KgToItem(decimal weightInKg, decimal itemWeight)
+        public static string KgToItem(decimal weightInKg, decimal itemWeight)
         {
             decimal weightInItem = weightInKg / itemWeight;
-            return Math.Round(weightInItem, 3);
+            return ToScientificNotation(weightInItem);
         }
         public static decimal KgToSubstanceVolume(decimal weightInKg, decimal substanceDensity)
         {
             decimal volumeInLiters =  substanceDensity/weightInKg;
-            return Math.Round(volumeInLiters, 3);
+            return volumeInLiters;
+        }
+
+        public static string ToScientificNotation(decimal number) {
+            return number.ToString("G4", CultureInfo.InvariantCulture);
         }
     }
 }

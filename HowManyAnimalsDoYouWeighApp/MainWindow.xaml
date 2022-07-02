@@ -65,13 +65,13 @@
             
             <!-- Animals -->
                 <ListView ItemsSource="{Binding Animals.Data }" MaxHeight="600" Margin="10" Width="450" Name="AnimalsListView"
-                          Grid.Column="0" Grid.Row="0" MouseDoubleClick="AnimalsListView_OnMouseDoubleClick">
+                          Grid.Column="0" Grid.Row="0"  MouseDoubleClick="AnimalsListView_OnMouseDoubleClick">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Animal" Width="200">
+                            <GridViewColumn Header="Animal" Width="250">
                                 <GridViewColumn.CellTemplate >
                                     <DataTemplate>
-                                        <TextBlock x:Name="AnimalNameTextBlock" TextWrapping="Wrap" Text="{Binding Name }"/>
+                                        <TextBlock x:Name="AnimalNameTextBlock" TextAlignment="Center" TextWrapping="Wrap" Text="{Binding Name }"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -84,10 +84,10 @@
                           Grid.Column="0" Grid.Row="0" MouseDoubleClick="ItemsListView_OnMouseDoubleClick">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Item" Width="200">
+                            <GridViewColumn Header="Item" Width="250">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock TextWrapping="Wrap" Text="{Binding Name }" />
+                                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{Binding Name }" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -100,10 +100,10 @@
                           Grid.Column="0" Grid.Row="0" MouseDoubleClick="SubstancesListView_OnMouseDoubleClick"> 
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Substance" Width="200">
+                            <GridViewColumn Header="Substance" Width="250">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock TextWrapping="Wrap" Text="{Binding Name }" />
+                                        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="{Binding Name }" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -112,7 +112,7 @@
                 </ListView>
             
             <StackPanel Grid.Column = "1" x:Name="SelectedTable" Margin="10 15">
-                <TextBlock Text="Selected" HorizontalAlignment="Center"/>
+                <TextBlock Text="Selected" Margin="0 0 0 10" HorizontalAlignment="Center"/>
                 <TextBlock x:Name="SelectedTextBlock" HorizontalAlignment="Center"/>
             </StackPanel>
             <StackPanel Grid.Column = "2" x:Name="InputGrid">

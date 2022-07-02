@@ -159,7 +159,6 @@ namespace HowManyAnimalsDoYouWeighApp
                 }
                ResultWindow resultWindow = new ResultWindow(mainResultViewModel);
                resultWindow.Show();
-               this.Close();
             }
         }
 
@@ -225,7 +224,8 @@ namespace HowManyAnimalsDoYouWeighApp
 
             foreach (var result in finalResults)
             {
-                result.CalculatedVolume = WeightConverters.KgToItem(personWeight, result.Density);
+                result.CalculatedVolume = WeightConverters.KgToSubstanceVolume(personWeight, result.Density);
+                result.CalculatedVolumeString = WeightConverters.ToScientificNotation(result.CalculatedVolume);
                 decimal valueOfClosestVisualization = FindClosestVisualization.FindValue(result.CalculatedVolume, await GetVisualizationVolume());
                 result.ClosestVisualization = (await GetVisualizationResult(valueOfClosestVisualization)).First(a=>a.Volume==valueOfClosestVisualization).Name;
             }
